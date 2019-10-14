@@ -32,7 +32,7 @@ class Tooltip {
 
     addTooltip(event) {
         const el = event.target;
-        const position = el.dataset.position;
+        const position = el.dataset.position || this.config.position;
         const content = el.dataset.content;
 
         const tooltipPosition = {};
@@ -51,6 +51,18 @@ class Tooltip {
 
         left = coords.left + (el.offsetWidth - tooltip.offsetWidth)/2;
         top = coords.top - tooltip.offsetHeight - 5;
+
+        if(position === 'left') {
+            left = coords.left - tooltip.offsetWidth - 5;
+        }
+
+        if(position === 'right') {
+            left = coords.left + el.offsetWidth + 5;
+        }
+
+        if(position === 'right' || position === 'left') {
+            top = coords.top - tooltip.offsetHeight/2 + el.offsetHeight/2;
+        }
 
         tooltip.style.left = left + 'px';
         tooltip.style.top = top + 'px';
@@ -71,5 +83,5 @@ const tooltip = new Tooltip({
     showDelay: 200, 
     hideDelay: 300,
     defaultContent: 'Hello, tooltip!',
-    defaultPosition: 'top, left'
+    defaultPosition: 'right'
 });
