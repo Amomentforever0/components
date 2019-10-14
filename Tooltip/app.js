@@ -32,8 +32,8 @@ class Tooltip {
 
     addTooltip(event) {
         const el = event.target;
-        const position = el.dataset.position || this.config.position;
-        const content = el.dataset.content;
+        const position = el.getAttribute('data-position') || this.config.position;
+        const content = el.getAttribute('data-content');
 
         const tooltipPosition = {};
 
