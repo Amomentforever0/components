@@ -21,8 +21,51 @@ button {
 
 .tooltip {
     position: absolute;
-    border: 2px solid #636e72;
-    padding: 20px;
-    box-sizing: border-box;
-    text-transform: uppercase;
+    left: auto;
+    right: auto;
+    margin: auto;
+    top: calc(100% + 11px);
+    display: flex;
+    width: 200px;
+    max-width: 250px;
+    justify-content: center;
+    font-family: 'Open Sans', sans-serif;
+    transition: opacity 0ms 120ms;
+    opacity: 0;
+    visibility: hidden;
+    background-color: #ffffff;
+    border-radius: 3px;
+    padding: 18px 20px;
+    border: solid 1px rgba(gray, 0.1);
+    box-shadow: 0 5px 10px 0 rgba(28, 24, 25, 0.1);
+}
+
+.tooltip::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: -12px;
+    left: -12px;
+    width: calc(100% + 24px);
+    height: calc(100% + 24px);
+    z-index: -1;
+}
+
+.tootlip::after {
+    position: absolute;
+    left: 50%;
+    top: -5px;
+    height: 16px;
+    width: 16px;
+    transform: rotate(45deg);
+    content: '';
+    background: #fff;
+    box-shadow: -3px -2px 6px 0 rgba(28, 24, 25, .07);
+    margin-left: -8px;
+}
+
+.tooltip.visible {
+    transition: opacity 300ms 60ms;
+    opacity: 1;
+    visibility: visible;
 }

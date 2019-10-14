@@ -15,14 +15,15 @@ class Tooltip {
             if(event.target.classList.contains('tooltip')) {
                 this.isHovered = true;
             }
-            return;
         });
 
         document.body.addEventListener('mouseout', (event) => {
+            console.log(event.relatedTarget);
             if(event.target.classList.contains('s-tooltip')) {
                 this.removeTooltip(event);
             }
-            if(event.target.classList.contains('tooltip')) {
+            if(event.target.classList.contains('tooltip') 
+                && !event.target.contains(event.relatedTarget)) {
                 this.isHovered = false;
                 this.removeTooltip(event);
             }
@@ -43,7 +44,7 @@ class Tooltip {
 
         const tooltip = document.createElement('div');
         tooltip.classList.add('tooltip');
-        tooltip.textContent = content || this.config.defaultContent;
+        tooltip.innerHTML = content || this.config.defaultContent;
         document.body.append(tooltip);
 
         const coords = el.getBoundingClientRect();
@@ -64,10 +65,10 @@ class Tooltip {
             top = coords.top - tooltip.offsetHeight/2 + el.offsetHeight/2;
         }
 
+        tooltip.classList.add('visible');
         tooltip.style.left = left + 'px';
         tooltip.style.top = top + 'px';
       };
-
 
     removeTooltip(event) {
         this.isHovered = false;
