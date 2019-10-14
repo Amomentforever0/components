@@ -2,7 +2,6 @@ class Tooltip {
     constructor(config) {
         this.config = config;
         this.isHovered = false;
-        this.init();
     }
 
     init() {
@@ -80,9 +79,15 @@ class Tooltip {
     }
 }
 
-const tooltip = new Tooltip({
-    showDelay: 200, 
-    hideDelay: 300,
-    defaultContent: 'Hello, tooltip!',
-    defaultPosition: 'right'
-});
+(() => {
+    window.onload = () => {
+        const tooltip = new Tooltip({
+            showDelay: 200, 
+            hideDelay: 300,
+            defaultContent: 'Hello, tooltip!',
+            defaultPosition: 'right'
+        });
+
+        tooltip.init();
+    };
+})();
