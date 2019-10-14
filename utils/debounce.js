@@ -25,6 +25,9 @@ const debounce = (fn, delay) => {
             result = event.target.value;
         };
 
+        const data = fetch('http://localhost:3000/users', { mode: 'cors' });
+        data.then((res) => { return res.json()}).then((data) => console.log(data));
+
         const input = document.createElement('input');
         input.addEventListener('input', debounce(handler, delay));
 

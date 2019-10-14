@@ -2,6 +2,7 @@ class Tooltip {
     constructor(config) {
         this.config = config;
         this.isHovered = false;
+        this.timeout = null;
     }
 
     init() {
@@ -9,24 +10,27 @@ class Tooltip {
             if(event.target.classList.contains('s-tooltip')) {
                 this.isHovered = true;
                 this.addTooltip(event);
+                clearTimeout(this.timeout);
             } 
 
             if(event.target.classList.contains('tooltip')) {
                 this.isHovered = true;
+                clearTimeout(this.timeout);
             }
         });
 
         document.body.addEventListener('mouseout', (event) => {
-            console.log(event.relatedTarget);
-            if(event.target.classList.contains('s-tooltip')) {
-                this.removeTooltip(event);
-            }
-            if(event.target.classList.contains('tooltip') 
-                && !event.target.contains(event.relatedTarget)) {
-                this.isHovered = false;
-                this.removeTooltip(event);
-            }
-            return;
+            this.timeout = setTimeout(() => {
+                if(event.target.classList.contains('s-tooltip')) {
+                    this.removeTooltip(event);
+                }
+                if(event.target.classList.contains('tooltip') 
+                    && !event.target.contains(event.relatedTarget)) {
+                    this.isHovered = false;
+                    this.removeTooltip(event);
+                }
+            }, this.config.hideDelay);  
+            
         });
     }
 
@@ -64,6 +68,9 @@ class Tooltip {
             top = coords.top - tooltip.offsetHeight/2 + el.offsetHeight/2;
         }
 
+        if(left < 0) left = 0;
+        if (top < 0) top = coords.top + el.offsetHeight + 5;
+
         tooltip.classList.add('visible');
         tooltip.style.left = left + 'px';
         tooltip.style.top = top + 'px';
@@ -71,11 +78,9 @@ class Tooltip {
 
     removeTooltip(event) {
         this.isHovered = false;
-        setTimeout(() => {
-            if(document.querySelector('.tooltip') && !this.isHovered) {
-                document.querySelector('.tooltip').remove();
-            }
-        }, this.config.hideDelay);
+        if(document.querySelector('.tooltip') && !this.isHovered) {
+            document.querySelector('.tooltip').remove();
+        }
     }
 }
 
