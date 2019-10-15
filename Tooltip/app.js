@@ -1,55 +1,57 @@
 class Tooltip {
     constructor(config) {
         this.config = config;
-        this.isHovered = false;
         this.timeout = null;
     }
 
     init() {
-        document.body.addEventListener('mouseover', (event) => {
-            if(event.target.classList.contains('s-tooltip')) {
-                this.isHovered = true;
-                this.addTooltip(event);
-                clearTimeout(this.timeout);
+        this.addTooltip();
+
+        document.body.addEventListener('mouseenter', (event) => {
+            if(event.target.classList.contains('s-tooltip') || event.target.classList.contains('tooltip')) {
+                if (this.timeout) {
+                    clearTimeout(this.timeout);
+                }
             } 
 
-            if(event.target.classList.contains('tooltip')) {
-                this.isHovered = true;
-                clearTimeout(this.timeout);
+            if(event.target.classList.contains('s-tooltip')) {
+                this.showTooltip(event);
             }
-        });
 
-        document.body.addEventListener('mouseout', (event) => {
+            console.log(this.timeout);
+        }, true);
+
+        document.body.addEventListener('mouseleave', (event) => {
+            const relatedTarget = event.relatedTarget || document.activeElement;
             this.timeout = setTimeout(() => {
                 if(event.target.classList.contains('s-tooltip')) {
-                    this.removeTooltip(event);
+                    this.hideTooltip(event);
                 }
                 if(event.target.classList.contains('tooltip') 
-                    && !event.target.contains(event.relatedTarget)) {
-                    this.isHovered = false;
-                    this.removeTooltip(event);
+                    && !event.target.contains(relatedTarget)) {
+                    this.hideTooltip(event);
                 }
             }, this.config.hideDelay);  
             
-        });
+        }, true);
     }
 
-    addTooltip(event) {
-        const el = event.target;
-        const position = el.getAttribute('data-position') || this.config.position;
-        const content = el.getAttribute('data-content');
-
-        const tooltipPosition = {};
-
-        if(document.querySelector('.tooltip')) {
-            document.querySelector('.tooltip').remove();
-        }
-
+    addTooltip() {
         const tooltip = document.createElement('div');
         tooltip.classList.add('tooltip');
-        tooltip.innerHTML = content || this.config.defaultContent;
+        tooltip.innerHTML = this.config.defaultContent;
         document.body.append(tooltip);
+    }
 
+    showTooltip(event) {
+        const el = event.target;
+        const position = el.getAttribute('data-position') || this.config.position;
+        const content = el.getAttribute('data-content') || this.config.defaultContent;
+        const tooltip = document.querySelector('.tooltip');
+        tooltip.innerHTML = content;
+        tooltip.classList.add('visible');
+
+        
         const coords = el.getBoundingClientRect();
         let left, top;
 
@@ -70,16 +72,15 @@ class Tooltip {
 
         if(left < 0) left = 0;
         if (top < 0) top = coords.top + el.offsetHeight + 5;
-
-        tooltip.classList.add('visible');
+        
         tooltip.style.left = left + 'px';
-        tooltip.style.top = top + 'px';
-      };
+        tooltip.style.top = top + pageYOffset + 'px';
+    };
 
-    removeTooltip(event) {
-        this.isHovered = false;
-        if(document.querySelector('.tooltip') && !this.isHovered) {
-            document.querySelector('.tooltip').remove();
+    hideTooltip() {
+        const tooltip = document.querySelector('.tooltip');
+        if(tooltip) {
+            tooltip.classList.remove('visible');
         }
     }
 }
