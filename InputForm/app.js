@@ -17,6 +17,7 @@ const debounce = (fn, delay) => {
     window.onload = () => {
         const input = document.querySelector('input');
         const resultContainer = document.querySelector('.results-handler');
+        const select = document.querySelector('#select');
 
         const mockData = [
             {
@@ -55,16 +56,23 @@ const debounce = (fn, delay) => {
 
                 if (filtered.length > 0) {
                     let container = document.createDocumentFragment();
-
+                    let listContainer = document.createDocumentFragment();
+                        
                     for(let entry of filtered) {
                         let item = document.createDocumentFragment();
                         item.textContent = JSON.stringify(entry);
                         container.append(item);
                     }
 
+                    for(let entry of filtered) {
+                        let option = new Option(entry.city, entry.id);
+                        listContainer.append(option);
+                    }
+
                     setTimeout(() => {
                         resultContainer.innerHTML = '';
                         resultContainer.append(container);
+                        select.append(listContainer);
                     }, 500);
                 }
             }
