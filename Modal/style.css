@@ -1,3 +1,38 @@
-class Modal {
+* {
+    margin: 0;
+    padding: 0;
+}
 
-};
+.modal-wrapper {
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.2);
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    display: none;
+    top: 0;
+    left: 0;
+}
+
+.modal {
+    margin: 0 auto;
+    min-width: 600px;
+    height: 450px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background: #ecf0f1;
+}
+
+.modal-wrapper.open {
+    display: flex;
+}
+
+.modal .fa-times-circle {
+    position: absolute;
+    right: 5px;
+    top: 5px;
+    cursor: pointer;
+}

@@ -80,6 +80,7 @@ class Tooltip {
     hideTooltip() {
         const tooltip = document.querySelector('.tooltip');
         if(tooltip) {
+            tooltip.innerHTML = '';
             tooltip.classList.remove('visible');
         }
     }
