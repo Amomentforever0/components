@@ -1,0 +1,27 @@
+body {
+    width: 100vw !important;
+    width: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+form {
+    width: 380px;
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-bottom: 30px;
+}
+
+button {
+    margin-top: 30px;
+    display: block;
+}
+
+ul.errors {
+    display: block !important;
+}

@@ -1,0 +1,63 @@
+<html>
+<head>
+    <title>Simple Form</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css">
+    <link rel="stylesheet" href="animate.css">
+</head>
+<body>
+    <h3 class="title is-3">Registration</h3>
+    <form autocomplete="off">
+        <div class="field">
+            <p class="control has-icons-left">
+                <input class="input required" id="name" placeholder="Username">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-user"></i>
+                </span>
+            </p>
+        </div>
+        <div class="field">
+            <p class="control has-icons-left has-icons-right">
+                <input class="input required email" id="email" placeholder="Email">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                </span>
+                <span class="icon is-small is-right">
+                    <i class="fas fa-check"></i>
+                </span>
+            </p>
+        </div>
+        <div class="field">
+            <p class="control has-icons-left">
+                <input class="input required date" id="date" placeholder="Date">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-calendar"></i>
+                </span>
+            </p>
+        </div>
+        <div class="field">
+            <p class="control has-icons-left">
+                <input class="input required url" id="url" value="http://" placeholder="Site address">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-globe"></i>
+                </span>
+            </p>
+        </div>
+        <div class="field">
+            <p class="control has-icons-left">
+                <input class="input required phone text" id="phone" placeholder="Phone">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-phone"></i>
+                </span>
+            </p>
+        </div>
+        <label class="checkbox">
+            <input type="checkbox">
+            Remember me
+        </label>    
+        <button type="submit" value="Submit Form" class="button is-primary">Submit</button>
+    </form>
+<script src="app.js"></script>
+</body>
+</html>
