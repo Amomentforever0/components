@@ -56,3 +56,45 @@ class Modal {
         document.querySelector('button').addEventListener('click', modal.openModal);
     };
 })();
+
+
+function Tooltip(config) {
+    this.timeout = null;
+    this.config = config;
+
+    this.init = function() {
+        this.addHandlers();
+    }
+
+    this.showTip = () => {
+        if (this.timeout) clearTimeout(this.timeout);
+        this.timeout = setTimeout(() => {
+            const tooltip = document.createElement('div');
+            tooltip.innerHTML = 'text';
+            document.body.append(tooltip);
+        }, 500);
+    };
+
+    this.hideTip = () => {
+        this.timeout = setTimeout(() => {
+            document.querySelector('div').remove();
+        }, 2000);
+    };
+
+    this.addHandlers = function() {
+        document.body.addEventListener('mouseenter', this.showTip);
+        document.body.addEventListener('mouseleave', this.hideTip);
+    };
+
+    this.removeHandlers = function() {
+        console.log('ok');
+    };
+
+    this.init();
+};
+
+Tooltip.prototype.hidden = function() {
+
+};
+
+const tip = new Tooltip();
