@@ -1,4 +1,6 @@
 import api from './services/api';
+import xhr from './utils/XHRPromisify';
+import config from './services/api';
 
 const delay = 500;
 const form = document.querySelector('form');
@@ -76,4 +78,18 @@ resultsContainer.addEventListener('click', handleContainerClick);
 input.addEventListener('input', (event) => {
     debouncedInputChange(event);
 });
+
+const conf = {
+    url: 'http://aviasales-api.herokuapp.com'
+};
+
+const req = new xhr(conf);
+
+req.get('countries').then((data) => {
+    const result = JSON.parse(data);
+    console.log(result);
+});
+
+req.abort();
+
 

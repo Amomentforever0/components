@@ -1,4 +1,4 @@
-const config = {
+export const config = {
     url: 'http://aviasales-api.herokuapp.com'
 };
 
